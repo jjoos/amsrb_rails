@@ -33,3 +33,19 @@
 <br>
 
 <%= link_to 'New Meetup', new_meetup_path %>
+
+<br>
+<br>
+
+
+<% unless user_signed_in? %>
+<strong>Authentication:</strong>
+<ul>
+  <li><%= link_to 'Sign in', new_user_session_path %></li>
+  <li><%= link_to 'Sign up', new_user_registration_path %></li>
+</ul>
+<% else %>
+You are signed in as <%= link_to current_user.email, 'mailto:current_user.email' %>
+<br>
+<%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %>
+<% end %>
