@@ -1,9 +1,18 @@
+require 'rmeetup'
+
 class MeetupsController < ApplicationController
   before_action :set_meetup, only: [:show, :edit, :update, :destroy]
 
   # GET /meetups
   # GET /meetups.json
   def index
+    client = RMeetup::Client.new do |config|
+      config.api_key = "****"
+    end
+    results = client.fetch(:events, { group_id: '3618542', status: 'upcoming' })
+
+    @meetup = results.first
+
     @meetups = Meetup.all
   end
 
